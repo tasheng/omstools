@@ -1,2 +1,2 @@
-CLIENT_ID = ''
-CLIENT_SECRET = ''
+CLIENT_ID = 'hin-my-api-client'
+CLIENT_SECRET = 'fuZo7btTtsGYXW4pnxLJyVlZ2hJE29ud'
