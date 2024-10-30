@@ -107,8 +107,8 @@ if __name__ == "__main__":
         one_hour_earlier = now - timedelta(hours=1)
 
         # Format the times in the specified format
-        timebs = (one_hour_earlier.strftime('%Y-%m-%dT%H:%M'),
-                  now.strftime('%Y-%m-%dT%H:%M'))
+        timebs = (one_hour_earlier.strftime('%Y-%m-%dT%H:%M:%S'),
+                  now.strftime('%Y-%m-%dT%H:%M:%S'))
     print("query time ranges", timebs)
     datas = oms.get_by_range(category = "lumisections",
                             var = "start_time", var2 = "end_time",
