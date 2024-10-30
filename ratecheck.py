@@ -100,11 +100,8 @@ if __name__ == "__main__":
         timebs = args.timerange.split(",")
     # otherwise use 1 hr from now
     else:
-        # Define Geneva timezone
-        geneva_tz = pytz.timezone("Europe/Zurich")
-
-        # Current time in Geneva timezone
-        now = datetime.now(geneva_tz)
+        # Current time in UTC
+        now = datetime.now(pytz.utc)
 
         # Get the time an hour earlier
         one_hour_earlier = now - timedelta(hours=1)
