@@ -80,7 +80,7 @@ else:
 
 if __name__ == "__main__":
     # Authorize pygsheets with the credentials file
-    gc = pygsheets.authorize(outh_file='/home/tasheng/hlt/oms/omstools/credentials.json')
+    gc = pygsheets.authorize(outh_file='credentials.json')
     # Open the Google Sheet by its URL
     spreadsheet = gc.open_by_url("https://docs.google.com/spreadsheets/d/1nkBI4aMjDM7XmFUuymKpOZGBpl5hy9gv--ZvRq_-Dz4/edit")
 
