@@ -1,3 +1,5 @@
+# -*- python-shell-interpreter: "/home/tasheng/hlt/oms/bin/ipython"-*-
+
 # from oms.omstools.util.oms import get_hltlist_by_run
 from util.oms import omsapi, get_hltlist_by_run
 import util.utility as u
@@ -135,8 +137,8 @@ if __name__ == "__main__":
         q.set_verbose(False)
         # q.custom("group[granularity]", "lumisection")
         q.filter("run_number", rls[0])
-        q.filter("first_lumisection_number",rls[1][0][0],"GE")
-        q.filter("last_lumisection_number",rls[1][0][1],"LE")
+        q.filter("lumisection_number",rls[1][0][0],"GE")
+        q.filter("lumisection_number",rls[1][0][1],"LE")
         lumi_data = q.data().json()["data"]
         lumi_values[run] = np.average(
             [l["attributes"]["init_lumi"] for l in lumi_data] +
