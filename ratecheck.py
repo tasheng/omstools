@@ -54,8 +54,8 @@ def get_rate_by_runls_range(name, run, ls = None, category = "hlt"):
 
 # fout = open("rate_monitoring.csv", "w")
 
-data_taking = 'pp'
-# data_taking = 'pbpb'
+# data_taking = 'pp'
+data_taking = 'pbpb'
 
 if data_taking == 'pp':
     hlt_paths = [
@@ -222,12 +222,12 @@ if __name__ == "__main__":
         ## |time start|time end|run|lumi start| lumi end| bunch | ave lumi|
         row = ["time start","time end","run","lumi start"," lumi end", "bunch", "ave lumi"]
         row += pathnames
-        row += ['est. jet35', 'est. jet60', 'ratio jet35', 'ratio jet60']
+        # row += ['est. jet35', 'est. jet60', 'ratio jet35', 'ratio jet60']
         worksheet.append_table(values=row)
         row = [timebs[0], timebs[1], run, rls[1][0][0], rls[1][0][1],
                bunch_values[run], lumi_values[run]]
         row += [f"{rate_results[path][run]:.3f}" for path in pathnames]
-        row += [est_35(lumi_values[run]), est_60(lumi_values[run])]
-        row += [ f"{rate_results['L1_SingleJet35 before PS'][run] / est_35(lumi_values[run]):.3f}" ]
-        row += [ f"{rate_results['L1_SingleJet60 before PS'][run] / est_60(lumi_values[run]):.3f}" ]
+        # row += [est_35(lumi_values[run]), est_60(lumi_values[run])]
+        # row += [ f"{rate_results['L1_SingleJet35 before PS'][run] / est_35(lumi_values[run]):.3f}" ]
+        # row += [ f"{rate_results['L1_SingleJet60 before PS'][run] / est_60(lumi_values[run]):.3f}" ]
         worksheet.append_table(values=row)
