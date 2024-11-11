@@ -1,8 +1,9 @@
 # Local Variables:
-
 # python-shell-interpreter: "/home/tasheng/hlt/oms/bin/ipython"
-# python-shell-interpreter-args: "-i"
+# python-shell-interpreter-args: ""
 # End:
+
+# (setq python-shell-interpreter-args "")
 
 # from oms.omstools.util.oms import get_hltlist_by_run
 from util.oms import omsapi, get_hltlist_by_run
@@ -80,7 +81,8 @@ l1_paths = [
 
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
+if True:
     # Authorize pygsheets with the credentials file
     gc = pygsheets.authorize(outh_file='credentials.json')
     # Open the Google Sheet by its URL
@@ -95,6 +97,7 @@ if __name__ == "__main__":
     parser.add_argument('--timerange', help = '(option 3) <start_time>,<end_time>')
     parser.add_argument('--l1preps', required = False, help = 'Optional store L1 pre PS rate instead of post DT rate', action = "store_true")
     parser.add_argument('--count', required = False, help = 'Optional store count instead of rate', action = "store_true")
+    parser.add_argument('--title', required = False, help = 'print title', action = "store_true")
     args = parser.parse_args()
 
     # specify time range in cmd argument
@@ -126,7 +129,9 @@ if __name__ == "__main__":
 
     rls_list = sorted(runlumi.items())
     # test time range
-    # rls_list = [['387528', [[284, 286]]]]
+    # rls_list = [['387973', [[61, 65]]],
+    #             ['388004', [[47, 48]]],
+    #             ]
 
     lumi_values = {}
     bunch_values = {}
@@ -141,9 +146,8 @@ if __name__ == "__main__":
         q.filter("lumisection_number",rls[1][0][0],"GE")
         q.filter("lumisection_number",rls[1][0][1],"LE")
         lumi_data = q.data().json()["data"]
-        lumi_values[run] = np.average(
-            [l["attributes"]["init_lumi"] for l in lumi_data] +
-            [l["attributes"]["end_lumi"] for l in lumi_data]
+        lumi_values[run] = np.sum(
+            [l["attributes"]["recorded_lumi_per_lumisection"] for l in lumi_data]
         )
         fill = lumi_data[0]["attributes"]["fill_number"]
         q_fill = omsapi.query("fills")
@@ -151,7 +155,8 @@ if __name__ == "__main__":
         fill_data = q_fill.data().json()["data"]
         bunch_values[run] = fill_data[0]["attributes"]["bunches_colliding"]
 
-    key_var = "rate"
+    # key_var = "rate"
+    key_var = "counter"
     if args.count:
         key_var = "counter"
         print("count", end = "")
@@ -173,8 +178,14 @@ if __name__ == "__main__":
     for rls in rls_list:
         # assign hlt versions from the current run
         hltlist = get_hltlist_by_run(rls[0])
+        if len(hltlist) == 0:
+            continue
         for i, hltpath in enumerate(hlt_paths):
+            if len(find_matching_strings(hltlist, hltpath)) == 0:
+                print(hltpath)
+                print(hltlist)
             hlt_paths[i] = find_matching_strings(hltlist, hltpath)[0]
+        continue
 
 
     # query both pre-PS and post-PS rate
@@ -196,7 +207,7 @@ if __name__ == "__main__":
         for hltpath in hlt_paths:
             print(hltpath)
             query_lumis = get_rate_by_runls_range(hltpath, rls[0], rls[1][0], "hlt")
-            rate_results[hltpath][run] = np.average([
+            rate_results[hltpath][run] = np.sum([
                 rate["attributes"][key_var] for rate in query_lumis])
 
         print(rate_results)
@@ -209,3 +220,16 @@ if __name__ == "__main__":
         #        bunch_values[run], f"{lumi_values[run]:.4g}"]
         # row += [f"{rate_results[path][run]:.3f}" for path in pathnames]
         # # worksheet.append_table(values=row)
+
+    lumi_sum = np.sum(list(lumi_values.values()))
+    count_sum = {}
+    for path in pathnames:
+        count_sum[path] = np.sum(list(rate_results[path].values()))
+    row = ["time start","time end", "lumi",]
+    row += pathnames
+    if args.title:
+        worksheet.append_table(values=row)
+    row = [timebs[0], timebs[1], f"{lumi_sum:.4g}"]
+    row += [f"{count_sum[path]:.4g}" for path in pathnames]
+    worksheet.append_table(values=row)
+
