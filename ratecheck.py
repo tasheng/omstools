@@ -225,7 +225,7 @@ if __name__ == "__main__":
         # row += ['est. jet35', 'est. jet60', 'ratio jet35', 'ratio jet60']
         worksheet.append_table(values=row)
         row = [timebs[0], timebs[1], run, rls[1][0][0], rls[1][0][1],
-               bunch_values[run], lumi_values[run]]
+               bunch_values[run], f"{lumi_values[run]:.4g}"]
         row += [f"{rate_results[path][run]:.3f}" for path in pathnames]
         # row += [est_35(lumi_values[run]), est_60(lumi_values[run])]
         # row += [ f"{rate_results['L1_SingleJet35 before PS'][run] / est_35(lumi_values[run]):.3f}" ]
