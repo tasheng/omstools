@@ -60,20 +60,15 @@ def get_rate_by_runls_range(name, run, ls = None, category = "hlt"):
 # fout = open("rate_monitoring.csv", "w")
 
 hlt_paths = [
-    "HLT_HIUPC_ZDC1nOR_MinPixelCluster400_MaxPixelCluster10000_v",
-    "HLT_HIUPC_ZDC1nOR_SinglePixelTrackLowPt_MaxPixelCluster400_v",
-    "HLT_HIUPC_ZDC1nOR_SinglePixelTrack_MaxPixelTrack_v",
-    "HLT_HIUPC_ZDC1nOR_MaxPixelCluster10000_v",
-    "HLT_HIUPC_ZeroBias_MinPixelCluster400_MaxPixelCluster10000_v",
-    "HLT_HIUPC_ZeroBias_SinglePixelTrackLowPt_MaxPixelCluster400_v",
-    "HLT_HIUPC_ZeroBias_SinglePixelTrack_MaxPixelTrack_v",
-    "HLT_HIPuAK4CaloJet80Eta5p1_v",
-    "HLT_HIPuAK4CaloJet100Eta5p1_v",
-    "HLT_HIL1DoubleMu0_MaxDr3p5_Open_v",
-    "HLT_HIL2DoubleMu0_Open_v",
-    "HLT_HIL2DoubleMu0_M7to15_Open_v",
-    "HLT_HIL2DoubleMu2p8_M1p5to6_Open_v",
-    "HLT_HIL2DoubleMu3_M7to15_Open_v"
+  "HLT_HIUPC_ZDC1nOR_MinPixelCluster400_MaxPixelCluster10000_v",
+  "HLT_HIUPC_ZDC1nOR_MaxPixelCluster10000_v",
+
+  "HLT_HIUPC_ZDC1nOR_MinPixelCluster400_MaxPixelCluster10000_v",
+  "HLT_HIUPC_ZeroBias_MaxPixelCluster10000_v",
+
+  "HLT_HIUPC_DoubleMuOpen_BptxAND_MaxPixelCluster1000_v6",
+  "HLT_HIUPC_DoubleMuOpen_NotMBHF2AND_v10",
+  "HLT_HIUPC_DoubleMuOpen_NotMBHF2AND_MaxPixelCluster1000_v6",
 ]
 
 l1_paths = [
