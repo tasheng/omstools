@@ -63,7 +63,7 @@ hlt_paths = [
   "HLT_HIUPC_ZDC1nOR_MinPixelCluster400_MaxPixelCluster10000_v",
   "HLT_HIUPC_ZDC1nOR_MaxPixelCluster10000_v",
 
-  "HLT_HIUPC_ZDC1nOR_MinPixelCluster400_MaxPixelCluster10000_v",
+  "HLT_HIUPC_ZeroBias_MinPixelCluster400_MaxPixelCluster10000_v",
   "HLT_HIUPC_ZeroBias_MaxPixelCluster10000_v",
 
   "HLT_HIUPC_DoubleMuOpen_BptxAND_MaxPixelCluster1000_v6",
@@ -114,7 +114,7 @@ if True:
     datas = oms.get_by_range(category = "lumisections",
                             var = "start_time", var2 = "end_time",
                             lmin = timebs[0], lmax = timebs[1],
-                            per_page = 100)
+                            per_page = 2000)
     # print(datas)
     datas = oms.filter_data_list(datas, "beams_stable", True)
     runlumi = oms.get_json_by_lumi(datas)
